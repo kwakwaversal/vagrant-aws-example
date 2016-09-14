@@ -5,7 +5,7 @@
 sudo locale-gen en_GB
 sudo update-locale LANG=en_GB
 
-# Install
+# Install apache2 and symlink the rsycned /vagrant folder.
 sudo apt-get update
 sudo apt-get install -y apache2
 if ! [ -L /var/www ]; then
