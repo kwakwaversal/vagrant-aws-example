@@ -1,8 +1,8 @@
 # vagrant-aws-example
-Example configuration to fire up an AWS EC2 instance.
+Example configuration to deploy an AWS EC2 instance using Vagrant.
 
 # Summary
-To familiarise myself again with [Vagrant](https://www.vagrantup.com/) and [Amazon Web Services](https://aws.amazon.com/) I wanted to write an `Vagrantfile` to automatically build a basic EC2 instance. References that I used to complete this task exist at the foot of this README.
+To refamiliarise myself with [Vagrant](https://www.vagrantup.com/) and [Amazon Web Services](https://aws.amazon.com/) I wanted to write a `Vagrantfile` to automatically build a basic EC2 instance. References that I used to complete this task exist at the foot of this README.
 
 N.B., My development machine is a Windows 10 laptop, so some instructions will be specific to that OS.
 
@@ -13,7 +13,7 @@ Vagrant providers need to be installed before you can use them. AWS isn't a defa
 $ vagrant plugin install vagrant-aws
 ```
 
-As per the [official plugin documentation](https://github.com/mitchellh/vagrant-aws), you need to use a dummy AWS box and specific details of the instance manually in a `config.vm.provider` block.
+As per the [official plugin documentation](https://github.com/mitchellh/vagrant-aws), you need to use a dummy AWS box and configure specific details of the instance manually in a `config.vm.provider` block.
 
 ```bash
 vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
@@ -39,12 +39,12 @@ rsync: connection unexpectedly closed (0 bytes received so far) [sender]
 rsync error: error in rsync protocol data stream (code 12) at io.c(226) [sender=3.1.2]
 ```
 
-[Other people](https://github.com/mitchellh/vagrant/issues/6677) has this problem too.
+[Other people](https://github.com/mitchellh/vagrant/issues/6677) had this problem too.
 
 I found that the issue was because I didn't have the `ssh` bundled with my Cygwin install. When you're installing Cygwin, it recommends you only install what you need. As such, I only selected `rsync` because I had a working `ssh` with my Windows `git` installation. As you've already guessed, they're not compatible!
 
 The fix was to add Cygwin's version of `ssh` to the Cygwin installation, and for good measure, I removed the `git`  `PATH` to make sure that `rsync` was using the `ssh` that was part of the same distribution as itself.
 
 # References
-- [Vagrant AWS Provider](https://github.com/mitchellh/vagrant-aws)
+- [Vagrant AWS Provider (official plugin)](https://github.com/mitchellh/vagrant-aws)
 - [AWS Automation based on Vagrant — Part 2](https://oliverveits.wordpress.com/2016/04/01/aws-automation-using-vagrant-a-hello-world-example/)
