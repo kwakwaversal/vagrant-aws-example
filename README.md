@@ -4,6 +4,8 @@ Example configuration to deploy an AWS EC2 instance using Vagrant.
 # Summary
 To refamiliarise myself with [Vagrant](https://www.vagrantup.com/) and [Amazon Web Services](https://aws.amazon.com/) I wanted to write a `Vagrantfile` to automatically build a basic EC2 instance. References that I used to complete this task exist at the foot of this README.
 
+This is not a complete tutorial for deploying an AWS instance. This assumes you know how to use AWS to create a user in IAM, create your private key pair, and create a network policy to secure an instance.
+
 N.B., My development machine is a Windows 10 laptop, so some instructions will be specific to that OS.
 
 # Usage
@@ -20,6 +22,28 @@ vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.
 ```
 
 If you're on windows, you will also need to install [Cygwin](https://www.cygwin.com/install.html). This is because the default way of mounting the `/vagrant` folder is using `rsync`. Install `rsync` and `ssh` and make sure the relevant `bin` folder is in your `PATH`.
+
+## Configuration
+This repository's `Vagrantfile` will not work out of the box for you. You'll need to set up the environmental variables and a few extra options to get it to work.
+
+### Environmental variables
+There are 4 Environmental variables set to get this example to work. They are `AWS_KEY`, `AWS_SECRET`, `AWS_KEYNAME` and `AWS_KEYPATH`.
+
+Rather than create a user with unlimited access to your AWS account, it's advisable to create a user with just the `AmazonEC2FullAccess` policy set. This can be done under `security credentials` in your AWS account.
+
+### Extra options
+These extra options are assuming that you're testing this `Vagrantfile` on the free tier. You'll need to modify them accordingly, and in the case of `aws.security_groups` you'll need to set up a group policy under the `Network & Security` section of the AWS portal. For this example, I've set up an inbound `SSH` and `HTTP` rule for my IP address.
+
+```ruby
+# AMI = Amazon Machine Image, select the Ubuntu Server 14.04 LTS image for your region
+aws.ami = "ami-ed82e39e"
+# The region to start the image in, such as "us-east-1"
+aws.region = "eu-west-1"
+# The type of instance (I've defaulted it to a free tier type)
+aws.instance_type = "t2.micro"
+# Create a security policy so that
+aws.security_groups = ["Vagrant"]
+```
 
 # Gotchas
 I came across some gotchas while trying to set this up. Most of them were easily fixed with a bit of Googling, but one was a bit of a pain to track down and fix.
