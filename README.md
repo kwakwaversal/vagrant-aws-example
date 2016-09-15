@@ -21,7 +21,13 @@ As per the [official plugin documentation](https://github.com/mitchellh/vagrant-
 vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
 ```
 
-If you're on windows, you will also need to install [Cygwin](https://www.cygwin.com/install.html). This is because the default way of mounting the `/vagrant` folder is using `rsync`. Install `rsync` and `ssh` and make sure the relevant `bin` folder is in your `PATH`.
+You're now just one step away from deployment. Update your `Vagrantfile` configuration using the help below, and then 'up' it. Magic!
+
+```bash
+vagrant up --provider=aws
+```
+
+N.B., If you're on windows, you will also need to install [Cygwin](https://www.cygwin.com/install.html). This is because the default way of mounting the `/vagrant` folder is using `rsync`. Install `rsync` and `ssh` and make sure the relevant `bin` folder is in your `PATH`.
 
 ## Configuration
 This repository's `Vagrantfile` will not work out of the box for you. You'll need to set up the environmental variables and a few extra options to get it to work.
@@ -41,7 +47,7 @@ aws.ami = "ami-ed82e39e"
 aws.region = "eu-west-1"
 # The type of instance (I've defaulted it to a free tier type)
 aws.instance_type = "t2.micro"
-# Create a security policy so that
+# Create a security policy so you can SSH to the box to complete the install
 aws.security_groups = ["Vagrant"]
 ```
 
