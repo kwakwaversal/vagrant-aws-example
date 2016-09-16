@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Optionally force the default provider to aws
+# ENV['VAGRANT_DEFAULT_PROVIDER'] = "aws"
+
 # https://github.com/mitchellh/vagrant-aws
 Vagrant.configure("2") do |config|
   config.vm.box = "dummy"
