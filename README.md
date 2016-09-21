@@ -9,7 +9,7 @@ This is not a complete tutorial for deploying an AWS instance. This assumes you 
 N.B., My development machine is a Windows 10 laptop, so some instructions will be specific to that OS.
 
 # Usage
-Vagrant providers need to be installed before you can use them. AWS isn't a default provider, so if you want to manage AWS instances you need to install it. If you have a fresh install, install the plugin first.
+Vagrant providers need to be installed before you can use them. AWS isn't a default provider, so if you want to manage AWS instances you need to install it. If you have a fresh vagrant install, install the plugin first.
 
 ```bash
 $ vagrant plugin install vagrant-aws
